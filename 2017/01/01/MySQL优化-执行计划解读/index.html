@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>MarkAsh Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                首页
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">John Doe's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">Mysql优化之执行计划解读</h2>
+            <div class="post-meta">
+                <span class="post-time">2017-01-01</span>
+                
+                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-6"><a class="toc-link" href="#使用explain-命令再解决数据库性能上是第一推荐命令，"><span class="toc-text">使用explain 命令再解决数据库性能上是第一推荐命令，</span></a></li></ol><li class="toc-item toc-level-4"><a class="toc-link" href="#1-select-type的类型："><span class="toc-text">1.select_type的类型：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Type，显示连接使用了哪种类型，有无使用索引"><span class="toc-text">2.Type，显示连接使用了哪种类型，有无使用索引</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Extra解决查询得详细信息"><span class="toc-text">3.Extra解决查询得详细信息</span></a>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</li></div>
+        <div class="post-content">
+            <h6 id="使用explain-命令再解决数据库性能上是第一推荐命令，"><a href="#使用explain-命令再解决数据库性能上是第一推荐命令，" class="headerlink" title="使用explain 命令再解决数据库性能上是第一推荐命令，"></a>使用explain 命令再解决数据库性能上是第一推荐命令，</h6><p>语法：<br><code>explain select ... from ... [where ...]</code><br><a id="more"></a><br>输出  </p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>select_type</th>
+<th>table</th>
+<th>type</th>
+<th>possible_keys</th>
+<th>key</th>
+<th>key_len</th>
+<th>ref</th>
+<th>rows</th>
+<th>Extra   </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>查询序列号</td>
+<td>select的类型</td>
+<td>那张表</td>
+<td>连接使用了那种类别，有无索引</td>
+<td>列出Mysql能使用哪个索引再表中找到行</td>
+<td>显示MySQL实际使用的键</td>
+<td>使用的键长度。越短越好</td>
+<td>使用哪个列或常数与key一起从表中选择行</td>
+<td>执行查询时必须检查的行数</td>
+<td>解决查询的详细信息</td>
+</tr>
+</tbody>
+</table>
+<p>详解：</p>
+<h4 id="1-select-type的类型："><a href="#1-select-type的类型：" class="headerlink" title="1.select_type的类型："></a>1.select_type的类型：</h4><ul>
+<li>SIMPLE:简单select，不适用UNION或子查询等</li>
+<li>PRIMARY：最外面的select</li>
+<li>UNION：UNION中的第二个或最后的select语句</li>
+<li>DEPENDENT UNIN：UNION中的底月个或后面的select语句，取决于外面的的查询。</li>
+<li>UNION RESULT：UNION的结果</li>
+<li>SUBQUERY：子查询的第一个select</li>
+<li>DEPENDENT SUBQUERY：子查询中的第一个select，取决于外面的查询</li>
+<li>DERIVED：导出表的select（from子句的子查询）</li>
+</ul>
+<h4 id="2-Type，显示连接使用了哪种类型，有无使用索引"><a href="#2-Type，显示连接使用了哪种类型，有无使用索引" class="headerlink" title="2.Type，显示连接使用了哪种类型，有无使用索引"></a>2.Type，显示连接使用了哪种类型，有无使用索引</h4><ul>
+<li>结果从好到坏依次是：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">system &gt; const &gt; eq_ref &gt; ref &gt; fulltext &gt; ref_or_null &gt;</span><br><span class="line">index_merge &gt; unique_subquery &gt; index_subquery &gt; range &gt;</span><br><span class="line">index &gt; ALL</span><br><span class="line">一般来说，得保证查询至少达到range级别，最好能达到ref，</span><br><span class="line">否则就可能会出险性能问题。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="3-Extra解决查询得详细信息"><a href="#3-Extra解决查询得详细信息" class="headerlink" title="3.Extra解决查询得详细信息"></a>3.Extra解决查询得详细信息</h4><ul>
+<li>Distinct ：一旦MySQL找到了与行相联合匹配得行，就不再搜索了</li>
+<li>Not exits: 优化了left join ，一旦他找到了匹配left join标准的行 就不再搜索了。</li>
+<li>Record： 没有找到理想的索引，</li>
+<li>Using filesort：看到这个查询就需要优化了，</li>
+<li>Using index: 列数据是从仅仅使用了索引中的信息而没有读取实际的行动的表返回的，这发生再表的全部的请求列都是同一个索引的时候。</li>
+<li>Using temporary：查询需要优化，MySQL需要创建一个临时表来存储结果，这通常发生再不同的列集进行order by上，而不是Group By上。</li>
+<li>Using where: 使用了where从句来限制那些行将于下一张表匹配或者是返回给用户。</li>
+</ul>
+<p><strong>另</strong>:   </p>
+<ul>
+<li>当type显示为“index”时，并且Extra显示为“using Index”，表明使用了覆盖索引。</li>
+</ul>
+
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2017/03/29/我的第一篇博客/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">我的第一篇博客</span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
+        
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2019
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">John Doe</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>
