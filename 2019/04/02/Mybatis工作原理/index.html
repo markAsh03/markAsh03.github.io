@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>MarkAsh Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                首页
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">John Doe's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">Mybatis工作原理</h2>
+            <div class="post-meta">
+                <span class="post-time">2019-04-02</span>
+                
+                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-工作原理"><span class="toc-text">1.工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-详细流程"><span class="toc-text">2.详细流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#接口层"><span class="toc-text">接口层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据处理层"><span class="toc-text">数据处理层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#框架支撑层"><span class="toc-text">框架支撑层</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-Mybatis的主要构建及其相互关系"><span class="toc-text">3.Mybatis的主要构建及其相互关系</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <h4 id="1-工作原理"><a href="#1-工作原理" class="headerlink" title="1.工作原理"></a>1.工作原理</h4><ul>
+<li>Mybatis应用程序通过SQLSessionFactoryBuilder从mybatis-config.xml配置文件（也可以用Java文件配置的方式，需要添加@Configuration）中构建出SQLSessionFactory（SQLSessionFactory是县城安全的）<a id="more"></a></li>
+<li>SQLSessionFactory的实力直接开启一个SQLSession，在通过SqlSession实例获取Mapper对象并运行Mapper映射的SQL语句，完成对数据库的CRUD和事务提交，之后关闭SQLSession。</li>
+<li>sqlSession是单线程对象，因为是非线程安全的，是持久化操作的独享对象，类型JDBC的Connection，底层封装了JDBC链接。<h4 id="2-详细流程"><a href="#2-详细流程" class="headerlink" title="2.详细流程"></a>2.详细流程</h4></li>
+<li>加载Mybatis全局配置文件（数据源，Mapper映射文件等），解析配置文件，Mybatis基于XML配置文件生成Configuration，和一个个MappedStatement（包括参数映射配置，动态SQL语句，结果映射配置），其对应着select|update|delete|insert标签项</li>
+<li>SQLSessionFactoryBuilder通过Configuration对象生成SQLSessionFactory，用来开发SqlSession。</li>
+<li>SqlSession对象完成和数据的交互：<ul>
+<li>用户程序调用Mybatis接口层api</li>
+<li>SqlSession通过调用api的StatementID找到对应的MappeedStatement对象</li>
+<li>通过Executor将mappedStatement对象进行解析，SQL参数转化，动态SQL拼接，生成JDBC statement对象</li>
+<li>JDBC执行SQL</li>
+<li>借助MappedStatement中的结果映射关系，将返回结果转化成HashMap，JavaBean等存储结构并返回<br><img src="http://img.blog.csdn.net/20141028232313593?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbHVhbmxvdWlz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="Mybatis框架设计图"></li>
+</ul>
+</li>
+</ul>
+<h4 id="接口层"><a href="#接口层" class="headerlink" title="接口层"></a>接口层</h4><ul>
+<li>Mybatis将配置文件中的每一个<mapper>节点抽象为一个Mapper接口。Mybatis的配置规范配置好后，通过SqlSession.getMapper(xxxMapper.class)方法，Mybatis会根据相应的接口信息，通过动态代理机制生成Mapper实例，确定StatementID，底层通过SqlSession.select(“statementId”, parameterOject)等来实现对数据库的操作。<h4 id="数据处理层"><a href="#数据处理层" class="headerlink" title="数据处理层"></a>数据处理层</h4><ul>
+<li>通过传入参数构建动态SQL语句<ul>
+<li>Mybatis通过传入的参数值，使用Ognl来动态构造SQL语句</li>
+</ul>
+</li>
+<li>SQL语句的执行以及封装查询结果<h4 id="框架支撑层"><a href="#框架支撑层" class="headerlink" title="框架支撑层"></a>框架支撑层</h4></li>
+<li>事物管理机制？？</li>
+<li>连接池管理机制？？</li>
+<li>缓存机制？？</li>
+<li>SQL语句配置方式？？</li>
+</ul>
+</mapper></li>
+</ul>
+<h4 id="3-Mybatis的主要构建及其相互关系"><a href="#3-Mybatis的主要构建及其相互关系" class="headerlink" title="3.Mybatis的主要构建及其相互关系"></a>3.Mybatis的主要构建及其相互关系</h4><ul>
+<li>SqlSession：表示和数据库交互的会话，完成对数据库的CRUD</li>
+<li>Executor：执行器，Mybatis的调度核心，负责SQL语句的生成和查询缓存的维护</li>
+<li>StatementHandler：封装JDBC Statement操作，设置参数，将Statement结果集装换成List集合</li>
+<li>ParameterHandler：负责对用户传递的参数转换成JDBC Statement所需参数</li>
+<li>ResultSetHandler：负责将JDBC返回的ResultSet结果集对象转换成List类型集合</li>
+<li>TypeHander：负责Java数据类型和jdbc数据类型之间的映射和转换</li>
+<li>MappedStatement：维护一条select|update|delete|insert节点的封装</li>
+<li>SQLSource：负责根据用户的parameterObject，动态生成SQL语句，将信息封装到BoundSQL对象中，并返回</li>
+<li>BoundSQL：动态生成SQL语句以及相应的参数信息</li>
+<li>Configuration：Mybatis所有的配置信息都绑定在该对象中</li>
+</ul>
+
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+        
+            <a class="next" href="/2019/04/01/MyBatis基础（一）/">
+                <span class="nav-default">MyBatis基础知识</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2019
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">John Doe</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>

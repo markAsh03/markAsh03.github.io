@@ -84,7 +84,7 @@
         </div>
         <div class="post-toc" id="post-toc">
     <strong class="post-toc-title">目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-什么是Mybatis？"><span class="toc-text">1.什么是Mybatis？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Mybatis-的优缺点"><span class="toc-text">2.Mybatis 的优缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-和-区别"><span class="toc-text">3.#{}和${}区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-当实体类的属性名和表中的字段名不一致时"><span class="toc-text">4.当实体类的属性名和表中的字段名不一致时</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Mapper接口"><span class="toc-text">4.Mapper接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-一对一，一对多的查询"><span class="toc-text">10.一对一，一对多的查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-延迟加载"><span class="toc-text">11.延迟加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-Mybatis的一级，二级缓存"><span class="toc-text">12.Mybatis的一级，二级缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-Mybatis的插件原理"><span class="toc-text">13.Mybatis的插件原理</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-什么是Mybatis？"><span class="toc-text">1.什么是Mybatis？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-Mybatis-的优缺点"><span class="toc-text">2.Mybatis 的优缺点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-和-区别"><span class="toc-text">3.#{}和${}区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-当实体类的属性名和表中的字段名不一致时"><span class="toc-text">4.当实体类的属性名和表中的字段名不一致时</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-Mapper接口"><span class="toc-text">4.Mapper接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-Mybatis分页"><span class="toc-text">5.Mybatis分页</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-Mybatis实现将SQL结果封装成目标对象并返回"><span class="toc-text">6.Mybatis实现将SQL结果封装成目标对象并返回</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-如何获取自动生成的主键"><span class="toc-text">7.如何获取自动生成的主键</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-在Mapper中传递多个参数"><span class="toc-text">8.在Mapper中传递多个参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-Mybatis的动态SQL"><span class="toc-text">9.Mybatis的动态SQL</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-一对一，一对多的查询"><span class="toc-text">10.一对一，一对多的查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-延迟加载"><span class="toc-text">11.延迟加载</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-Mybatis的一级，二级缓存"><span class="toc-text">12.Mybatis的一级，二级缓存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-Mybatis的插件原理"><span class="toc-text">13.Mybatis的插件原理</span></a></li></ol>
     <div class="back-to-top" id="back-to-top">
         <a href="javascript:void(0);">回到顶部</a>
     </div>
@@ -92,22 +92,22 @@
         <div class="post-content">
             <h4 id="1-什么是Mybatis？"><a href="#1-什么是Mybatis？" class="headerlink" title="1.什么是Mybatis？"></a>1.什么是Mybatis？</h4><ul>
 <li>Mybatis是一个半ORM（对象关系映射）框架，它内部封装了JDBC，开发只需要关注SQL本身，不需要处理加载驱动，创建连接，创建statement等过程。<a id="more"></a></li>
-<li>Mybatis可以使用XML或注解来配置和映射原生信息，将POJO映射成数据中的记录，避免了几乎所有的JDBC代码和手动设置参数以及获取结果集。</li>
-<li>通过XML文件或注解的方式将要执行的各种statement配置起来，并通过statement的动态参数进行映射生成最终执行的SQL语句，最后由Mybatis框架执行SQL并将结果映射为Java队形并返回。<h4 id="2-Mybatis-的优缺点"><a href="#2-Mybatis-的优缺点" class="headerlink" title="2.Mybatis 的优缺点"></a>2.Mybatis 的优缺点</h4>优点|缺点<br>—|—<br>基于 SQL语句编程，相对灵活，SQL与代码解耦，便于管理|SQL编写工作量大<br>提供映射标签，支持队形与数据库的ORM字段关系映射|SQL依赖数据库，移植性差<h4 id="3-和-区别"><a href="#3-和-区别" class="headerlink" title="3.#{}和${}区别"></a>3.#{}和${}区别</h4></li>
+<li>Mybatis可以使用XML或注解来配置和映射原生信息，将POJO映射成数据库中的记录，避免了几乎所有的JDBC代码和手动设置参数以及获取结果集。</li>
+<li>通过XML文件或注解的方式将要执行的各种statement配置起来，并通过statement的动态参数进行映射生成最终执行的SQL语句，最后由Mybatis框架执行SQL并将结果映射为Java对象并返回。<h4 id="2-Mybatis-的优缺点"><a href="#2-Mybatis-的优缺点" class="headerlink" title="2.Mybatis 的优缺点"></a>2.Mybatis 的优缺点</h4>优点|缺点<br>—|—<br>基于 SQL语句编程，相对灵活，SQL与代码解耦，便于管理|SQL编写工作量大<br>提供映射标签，支持队形与数据库的ORM字段关系映射|SQL依赖数据库，移植性差<h4 id="3-和-区别"><a href="#3-和-区别" class="headerlink" title="3.#{}和${}区别"></a>3.#{}和${}区别</h4></li>
 <li>#{}是预编译处理，${}是字符串替换</li>
 <li>Mybatis在处理#{}时，会将SQL中的#{}替换成？，调用PreparedStatement的set方法来赋值</li>
 <li>Mybatis在处理${}时，就是把${}替换成变量的值</li>
 <li>使用#{}可以有效防止SQL的注入<h4 id="4-当实体类的属性名和表中的字段名不一致时"><a href="#4-当实体类的属性名和表中的字段名不一致时" class="headerlink" title="4.当实体类的属性名和表中的字段名不一致时"></a>4.当实体类的属性名和表中的字段名不一致时</h4></li>
 <li>查询SQL定义字段的别名</li>
-<li>通过<resultmap>来映射<h4 id="4-Mapper接口"><a href="#4-Mapper接口" class="headerlink" title="4.Mapper接口"></a>4.Mapper接口</h4></resultmap></li>
+<li>通过<code>&lt;resultMap&gt;</code>来映射<h4 id="4-Mapper接口"><a href="#4-Mapper接口" class="headerlink" title="4.Mapper接口"></a>4.Mapper接口</h4></li>
 <li>接口的全限名，即映射文件的namespace的值，接口的方法名，就是映射文件的Mapping的statement的id值</li>
 <li>Mapper接口没有实现类，调用接口方法时： 接口全限名+方法名拼接字符串作为key值，就可以唯一定位一个MapperStatement。</li>
-<li>Mapper接口里的方法，是不能重载的。Mapper接口的工作原理是JDK动态代理，Mybatis运行时会使用JDK动态代理为Mapper接口生成代理对象proxy，代理对象会拦截接口方法，转而执行MapperStatement所代表的SQL。<br>####5.Mybatis分页</li>
+<li>Mapper接口里的方法，是不能重载的。Mapper接口的工作原理是JDK动态代理，Mybatis运行时会使用JDK动态代理为Mapper接口生成代理对象proxy，代理对象会拦截接口方法，转而执行MapperStatement所代表的SQL。<h4 id="5-Mybatis分页"><a href="#5-Mybatis分页" class="headerlink" title="5.Mybatis分页"></a>5.Mybatis分页</h4></li>
 <li>Mybatis的分页可分为内存分页和物理分页</li>
-<li>分页插件的基本原理是使用Mybatis提供的插件接口，实现自定义插件，在插件的拦截方法内拦截待执行的SQL，然后重写SQL，根据dialect方言，添加对应的物理分页语句和物理分页参数。<br>####6.Mybatis实现将SQL结果封装成目标对象并返回</li>
+<li>分页插件的基本原理是使用Mybatis提供的插件接口，实现自定义插件，在插件的拦截方法内拦截待执行的SQL，然后重写SQL，根据dialect方言，添加对应的物理分页语句和物理分页参数。<h4 id="6-Mybatis实现将SQL结果封装成目标对象并返回"><a href="#6-Mybatis实现将SQL结果封装成目标对象并返回" class="headerlink" title="6.Mybatis实现将SQL结果封装成目标对象并返回"></a>6.Mybatis实现将SQL结果封装成目标对象并返回</h4></li>
 <li>使用<resultmap>标签，逐一定义数据库列名和对象属性名之间的映射关系</resultmap></li>
 <li>使用SQL列的别名功能，将列的别名书写为队形的属性名</li>
-<li>有了列名和属性名的映射关系后，Mybatis通过反射创建对象，同时使用反射给对象的属性逐一赋值并返回。<br>####7.如何获取自动生成的主键</li>
+<li>有了列名和属性名的映射关系后，Mybatis通过反射创建对象，同时使用反射给对象的属性逐一赋值并返回。<h4 id="7-如何获取自动生成的主键"><a href="#7-如何获取自动生成的主键" class="headerlink" title="7.如何获取自动生成的主键"></a>7.如何获取自动生成的主键</h4></li>
 <li><p>MySQL：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertname&quot; usegeneratedkeys=&quot;true&quot; keyproperty=&quot;id&quot;&gt;</span><br><span class="line">    insert into names(name) values (#&#123;name&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
 </li>
@@ -115,11 +115,10 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;insert id=&quot;insertname&quot; &gt;</span><br><span class="line">    &lt;selectKey keyProperty=&quot;id&quot; resultType=&quot;String&quot; order=&quot;BEFORE&quot;&gt;</span><br><span class="line">        select sys_guid() from dual</span><br><span class="line">    &lt;/selectKey&gt;</span><br><span class="line">    insert into names values(#&#123;id&#125;, #&#123;name&#125;)</span><br><span class="line">&lt;/insert&gt;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>####8.在Mapper中传递多个参数</p>
-<ul>
+<h4 id="8-在Mapper中传递多个参数"><a href="#8-在Mapper中传递多个参数" class="headerlink" title="8.在Mapper中传递多个参数"></a>8.在Mapper中传递多个参数</h4><ul>
 <li>#{0}, #{1}依次获取方法传递过来的参数</li>
 <li>使用@param(“propertyname”)</li>
-<li>参数封装成Map，通过key获取<br>####9.Mybatis的动态SQL</li>
+<li>参数封装成Map，通过key获取<h4 id="9-Mybatis的动态SQL"><a href="#9-Mybatis的动态SQL" class="headerlink" title="9.Mybatis的动态SQL"></a>9.Mybatis的动态SQL</h4></li>
 <li>Mybatis动态SQL可以在XML映射文件内，以标签形式编写动态SQL，根据表达式的值，完成拼接</li>
 <li>Mybatis提供了9种动态SQL标签：trim|where|set|foreach|if|choose|when|otherwise|bind<h4 id="10-一对一，一对多的查询"><a href="#10-一对一，一对多的查询" class="headerlink" title="10.一对一，一对多的查询"></a>10.一对一，一对多的查询</h4></li>
 <li>一对一：可通过联合查询和嵌套查询，<association> </association></li>
@@ -139,6 +138,12 @@
 </div>
 <div class="paginator">
     
+        
+            <a class="prev" href="/2019/04/02/Mybatis工作原理/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default">Mybatis工作原理</span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
         
         
             <a class="next" href="/2019/03/30/Hexo+Github博客搭建/">
