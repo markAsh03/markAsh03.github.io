@@ -75,7 +75,7 @@
         <div class="posts">
     <article class="post-whole">
         <div class="post-title">
-            <h2 class="title"></h2>
+            <h2 class="title">Java 虚拟机</h2>
             <div class="post-meta">
                 <span class="post-time">2019-06-21</span>
                 
@@ -100,12 +100,10 @@
 <li>线程共享的：<ul>
 <li>堆</li>
 <li>方法区</li>
-<li>直接内存   </li>
+<li>直接内存   <a id="more"></a>
+<img src="https://camo.githubusercontent.com/0bcc6c01a919b175827f0d5540aeec115df6c001/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d334a617661e8bf90e8a18ce697b6e695b0e68daee58cbae59f9f4a444b312e382e706e67" alt="image"><h5 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1.程序计数器"></a>1.程序计数器</h5></li>
 </ul>
 </li>
-</ul>
-<p><img src="https://camo.githubusercontent.com/0bcc6c01a919b175827f0d5540aeec115df6c001/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d334a617661e8bf90e8a18ce697b6e695b0e68daee58cbae59f9f4a444b312e382e706e67" alt="image"></p>
-<h5 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1.程序计数器"></a>1.程序计数器</h5><ul>
 <li>程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支，循环，跳转，异常处理， 线程恢复等功能都需要依赖这个计时器来完成。</li>
 <li>程序计数器主要有两个作用：<ul>
 <li>字节码解释器通过改变程序计数器来依次读取指令，从而实现代码的流程控制。</li>
@@ -183,8 +181,8 @@
     
         
         
-            <a class="next" href="/2019/06/21/深入理解JVM/">
-                <span class="nav-default"></span>
+            <a class="next" href="/2019/06/21/Java内存/">
+                <span class="nav-default">Java内存</span>
                 <span class="nav-mobile">下一篇</span>
                 <i class="iconfont icon-next"></i>
             </a>
