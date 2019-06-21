@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>MarkAsh Blog</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/gitment.css">
+    <link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_859455_eaq7v6w8ktj.css">
+</head>
+<body>
+<header class="header">
+    <div class="header-inner">
+        <div class="header-title">
+
+        </div>
+        <nav class="header-nav">
+            
+            <a href="/" class="header-nav-link">
+                首页
+            </a>
+            
+
+            
+            <a href="/archives" class="header-nav-link">
+                归档
+            </a>
+            
+
+            
+            <a href="/tags" class="header-nav-link">
+                标签
+            </a>
+            
+
+            
+        </nav>
+    </div>
+</header>
+<header class="mobile-header">
+    <div class="mobile-nav">
+        <div class="mobile-nav-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="mobile-nav-title">
+            <a href="/" class="mobile-nav-title-link">John Doe's Blog</a>
+        </div>
+
+    </div>
+    <nav class="mobile-menu">
+        <ul class="mobile-menu-list">
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-home"></i>
+                <a href="/" class="mobile-nav-link">首页</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-archive"></i>
+                <a href="/archives" class="mobile-nav-link">归档</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-tag"></i>
+                <a href="/tags" class="mobile-nav-link">标签</a>
+            </li>
+            <li class="mobile-menu-item">
+                <i class="iconfont icon-about"></i>
+                <a href="/about/" class="mobile-nav-link">关于</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="main">
+    <div class="content-inner">
+        <div class="posts">
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">Nginx基本功能和原理</h2>
+            <div class="post-meta">
+                <span class="post-time">2019-04-04</span>
+                
+                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
+            </div>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Nginx基本功能"><span class="toc-text">Nginx基本功能</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Master进程作用"><span class="toc-text">Master进程作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#worker进程的作用"><span class="toc-text">worker进程的作用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#多进程的工作模式"><span class="toc-text">多进程的工作模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Nginx的热部署"><span class="toc-text">Nginx的热部署</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <h4 id="Nginx基本功能"><a href="#Nginx基本功能" class="headerlink" title="Nginx基本功能"></a>Nginx基本功能</h4><ul>
+<li>反向代理</li>
+<li>正向代理</li>
+<li>负载均衡</li>
+<li>HTTP服务器</li>
+</ul>
+<a id="more"></a>
+<p>Nginx采用的是多进程（单线程）&amp; 多路IO复用模型， 使用了I/O多路复用技术的Nginx，就成了”并发事件驱动”的服务器。</p>
+<ul>
+<li>一般worker进程个数是根据服务器CPU核数来决定</li>
+<li>master进程负责管理Nginx本身和其他worker进程<br><img src="https://img-blog.csdn.net/20170303170640322?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvU1RGUEhQ/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="Nginx工作图"></li>
+</ul>
+<h4 id="Master进程作用"><a href="#Master进程作用" class="headerlink" title="Master进程作用"></a>Master进程作用</h4><ul>
+<li><strong>读物并验证配置文件nginx.conf， 管理worker进程</strong></li>
+</ul>
+<h4 id="worker进程的作用"><a href="#worker进程的作用" class="headerlink" title="worker进程的作用"></a>worker进程的作用</h4><ul>
+<li><strong>维护一个线程，处理连接和请求</strong></li>
+</ul>
+<h4 id="多进程的工作模式"><a href="#多进程的工作模式" class="headerlink" title="多进程的工作模式"></a>多进程的工作模式</h4><ul>
+<li>Nginx在启动后，会有一个master进程和多个相互独立的worker进程</li>
+<li>master接受来自外界的信号，向各worker进程发送信号，每个进程都有可能来处理这个连接</li>
+<li>master进程能监控worker进程的运行状态，当worker进程退出后，会自动启动新的worker进程</li>
+</ul>
+<h4 id="Nginx的热部署"><a href="#Nginx的热部署" class="headerlink" title="Nginx的热部署"></a>Nginx的热部署</h4><ul>
+<li>修改配置文件nginx.conf后，以新的配置，重新生成的新的worker进程，新的请求交给新的worker进程，老的worker进程，</li>
+</ul>
+<p>参考文档：</p>
+<ul>
+<li><a href="https://www.jianshu.com/p/6215e5d24553" target="_blank" rel="noopener">https://www.jianshu.com/p/6215e5d24553</a></li>
+<li><a href="http://www.cnblogs.com/chenjfblog/p/8715580.html" target="_blank" rel="noopener">http://www.cnblogs.com/chenjfblog/p/8715580.html</a></li>
+<li><a href="https://blog.csdn.net/wy757510722/article/details/75267431" target="_blank" rel="noopener">https://blog.csdn.net/wy757510722/article/details/75267431</a></li>
+<li><a href="https://blog.csdn.net/Kim_Weir/article/details/80036462" target="_blank" rel="noopener">https://blog.csdn.net/Kim_Weir/article/details/80036462</a></li>
+</ul>
+
+        </div>
+        
+    </article>
+</div>
+<div class="paginator">
+    
+        
+            <a class="prev" href="/2019/06/21/JDK动态代理和Cglib动态代理/">
+                <i class="iconfont icon-prev"></i>
+                <span class="nav-default"></span>
+                <span class="nav-mobile">上一篇</span>
+            </a>
+        
+        
+            <a class="next" href="/2019/04/04/为什么使用Nginx/">
+                <span class="nav-default">为什么使用Nginx</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
+        
+    
+</div>
+<div id="comment-container"></div>
+    </div>
+</div>
+<footer class="footer-social">
+    
+
+    
+
+    
+
+    <div class="footer-copyright">
+        <p class="time-line">
+            &copy;
+            
+            
+            2019
+            &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
+            <a target="_blank" href="https://github.com/iJinxin">John Doe</a>
+        </p>
+        <p class="theme-info">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>  |  Theme -
+            <a target="_blank" href="https://github.com/iJinxin/hexo-theme-sky">Sky</a>
+        </p>
+    </div>
+</footer>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+    
+
+</script>
+</html>
