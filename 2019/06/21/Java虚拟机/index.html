@@ -84,13 +84,14 @@
         </div>
         <div class="post-toc" id="post-toc">
     <strong class="post-toc-title">目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#运行时数据区域"><span class="toc-text">运行时数据区域</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-程序计数器"><span class="toc-text">1.程序计数器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-Java虚拟机栈"><span class="toc-text">2.Java虚拟机栈</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-本地方法栈"><span class="toc-text">3.本地方法栈</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-堆"><span class="toc-text">4.堆</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-方法区"><span class="toc-text">5.方法区</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-运行时常量池"><span class="toc-text">6.运行时常量池</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-直接内存"><span class="toc-text">7.直接内存</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#HotSpot虚拟机对象揭秘"><span class="toc-text">HotSpot虚拟机对象揭秘</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-对象的创建"><span class="toc-text">1.对象的创建</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-对象的内存分布"><span class="toc-text">2.对象的内存分布</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-对象的方位定位"><span class="toc-text">3.对象的方位定位</span></a></li></ol></li>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-运行时数据区域"><span class="toc-text">1.运行时数据区域</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-程序计数器"><span class="toc-text">1.程序计数器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-Java虚拟机栈"><span class="toc-text">2.Java虚拟机栈</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-本地方法栈"><span class="toc-text">3.本地方法栈</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-堆"><span class="toc-text">4.堆</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-方法区"><span class="toc-text">5.方法区</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#6-运行时常量池"><span class="toc-text">6.运行时常量池</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#7-直接内存"><span class="toc-text">7.直接内存</span></a></li></ol></li></ol><li class="toc-item toc-level-3"><a class="toc-link" href="#HotSpot虚拟机对象揭秘"><span class="toc-text">HotSpot虚拟机对象揭秘</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-对象的创建"><span class="toc-text">1.对象的创建</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-对象的内存分布"><span class="toc-text">2.对象的内存分布</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-对象的方位定位"><span class="toc-text">3.对象的方位定位</span></a></li></ol></li>
     <div class="back-to-top" id="back-to-top">
         <a href="javascript:void(0);">回到顶部</a>
     </div>
 </div>
         <div class="post-content">
-            <h4 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h4><ul>
+            <h4 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1.运行时数据区域"></a>1.运行时数据区域</h4> <a id="more"></a>
+<ul>
 <li>线程私有的：<ul>
 <li>程序计数器</li>
 <li>虚拟机栈</li>
@@ -100,8 +101,7 @@
 <li>线程共享的：<ul>
 <li>堆</li>
 <li>方法区</li>
-<li>直接内存   <a id="more"></a>
-<img src="https://camo.githubusercontent.com/0bcc6c01a919b175827f0d5540aeec115df6c001/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d334a617661e8bf90e8a18ce697b6e695b0e68daee58cbae59f9f4a444b312e382e706e67" alt="image"><h5 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1.程序计数器"></a>1.程序计数器</h5></li>
+<li>直接内存<br><img src="https://camo.githubusercontent.com/0bcc6c01a919b175827f0d5540aeec115df6c001/68747470733a2f2f6d792d626c6f672d746f2d7573652e6f73732d636e2d6265696a696e672e616c6979756e63732e636f6d2f323031392d334a617661e8bf90e8a18ce697b6e695b0e68daee58cbae59f9f4a444b312e382e706e67" alt="image"><h5 id="1-程序计数器"><a href="#1-程序计数器" class="headerlink" title="1.程序计数器"></a>1.程序计数器</h5></li>
 </ul>
 </li>
 <li>程序计数器是一块较小的内存空间，可以看作是当前线程所执行的字节码的行号指示器。字节码解释器工作时通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支，循环，跳转，异常处理， 线程恢复等功能都需要依赖这个计时器来完成。</li>
