@@ -90,7 +90,8 @@
     </div>
 </div>
         <div class="post-content">
-            <a id="more"></a>
+            <p>HashMap相关</p>
+<a id="more"></a>
 <h4 id="1-HashMap的数据结构"><a href="#1-HashMap的数据结构" class="headerlink" title="1. HashMap的数据结构"></a>1. HashMap的数据结构</h4><p>哈希表结构（链表散列：数组+链接）实现，结合数组和链表的有点。当链表长度超过8时，链表转换成红黑树<br>transient Node&lt;K, V&gt;[] table;</p>
 <h4 id="2-HashMap的工作原理"><a href="#2-HashMap的工作原理" class="headerlink" title="2.HashMap的工作原理"></a>2.HashMap的工作原理</h4><p>HashMap底层时hash数组和单向链表实现，数组中的每个元素都是链表，由Node内部类（实现Map.Entry&lt;K,V&gt; 接口）实现，HashMap通过put&amp;get方法存储和获取。<br>存储对象时，将K/V键值传给put方法：</p>
 <ul>

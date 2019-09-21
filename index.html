@@ -84,83 +84,13 @@
             </div>
             <div class="post-content">
                 
-                    <a id="more"></a>
-<h4 id="1-HashMap的数据结构"><a href="#1-HashMap的数据结构" class="headerlink" title="1. HashMap的数据结构"></a>1. HashMap的数据结构</h4><p>哈希表结构（链表散列：数组+链接）实现，结合数组和链表的有点。当链表长度超过8时，链表转换成红黑树<br>transient Node&lt;K, V&gt;[] table;</p>
-<h4 id="2-HashMap的工作原理"><a href="#2-HashMap的工作原理" class="headerlink" title="2.HashMap的工作原理"></a>2.HashMap的工作原理</h4><p>HashMap底层时hash数组和单向链表实现，数组中的每个元素都是链表，由Node内部类（实现Map.Entry&lt;K,V&gt; 接口）实现，HashMap通过put&amp;get方法存储和获取。<br>存储对象时，将K/V键值传给put方法：</p>
-<ul>
-<li>调用hash(K)方法计算K的hash值，然后结合数组长度，计算得数组下标；</li>
-<li>调整数组大小（当容器中得元素个数大于capacity*loadfactor时，容器会进行扩容resize为2n）；</li>
-<li>如果K得hash值在hashMap中不存在，则执行插入，若存在，则发生碰撞；<ul>
-<li>如果K得hash值在HashMap中存在，且他们两者equals返回true，则更新键值对；</li>
-<li>如果K得hash值在HashMap中存在，且他们两者equals返回false，则插入链表得尾部（尾插法）或者红黑树中。（JDK1.7之前是头插法，JDK1.8使用尾插法）<ul>
-<li>当碰撞导致链表大于TREEIFY_THRESHOLD = 8时，就把链表转成红黑树  </li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>获取对象时，将K传给get方法：</p>
-<ul>
-<li>调用hash(K) 方法，从而获取该键值所在链表得数组下标</li>
-<li>顺序遍历链表，equals方法查找相同Node链表中K值对应得V值<br><strong>hashCode是定位存储位置；equals是定性，比较二者是否相等</strong></li>
-</ul>
-<h4 id="3-当两个对象得hashCode相同会发生什么？"><a href="#3-当两个对象得hashCode相同会发生什么？" class="headerlink" title="3. 当两个对象得hashCode相同会发生什么？"></a>3. 当两个对象得hashCode相同会发生什么？</h4><p>因为hashCode相同，不一定就是相等，所以两个对象所在数组得下标相同，碰撞就此发生，又因为hashMap使用链表存储对象，这个Node会存储到链表中。</p>
-<h4 id="4-hash得实现？"><a href="#4-hash得实现？" class="headerlink" title="4.hash得实现？"></a>4.hash得实现？</h4><p>JDK1.8中，是通过hashCode()得高16位异或低16位实现： (h=k.hashCode())^(h&gt;&gt;&gt;16), 主要是从速度，功效，质量来考虑，减少系统开销，也不会造成因为高位没有参与下标计算，从而引起碰撞</p>
-<p>异或运算可以保证了对象得hashCode得32位值只要有一位发生改变，整个hash()返回值就会改变，尽可能减少碰撞</p>
-<h4 id="6-HashMap的table容量如何确定？loadfactor是什么？"><a href="#6-HashMap的table容量如何确定？loadfactor是什么？" class="headerlink" title="6.HashMap的table容量如何确定？loadfactor是什么？"></a>6.HashMap的table容量如何确定？loadfactor是什么？</h4><ul>
-<li>table数组大小是由capacity这个参数确定的，默认16，也可以构造传入，最大限制1&lt;&lt;30;</li>
-<li>loadfactor是转载因子，主要目的是用来确认table数组是否需要动态扩展，默认值是0.75，比如table数组的大小是16，转载因子是0.75时，threshold就是12，当table的实际大小超过12时，table就需要动态扩容。</li>
-<li>扩容时，调用resize()方法，将table长度变为原来的两倍</li>
-<li>如果数组很大的情况下，扩展时将会带来性能的损失，在性能要求较高时，这种损失很致命</li>
-</ul>
-<h4 id="7-HashMap中put方法过程"><a href="#7-HashMap中put方法过程" class="headerlink" title="7. HashMap中put方法过程"></a>7. HashMap中put方法过程</h4><ul>
-<li>调用hash函数获取key对应的hash值，再计算其数组下标</li>
-<li>如果没有出险hash冲突，则直接放入数组，如果出险hash冲突，则以链表方法放在链表后面</li>
-<li>如果链表长度超过阈值（THEEIFY_THRESHOLD=8）,就把链表转成红黑树，链表长度低于6，就把红黑树转会链表</li>
-<li>如果节点的key已经存在，则替换其value即可</li>
-<li>如果集合中键值大于12，调用resize方法进行数组扩容</li>
-</ul>
-<h4 id="8-数组扩容"><a href="#8-数组扩容" class="headerlink" title="8.数组扩容"></a>8.数组扩容</h4><p>创建一个新的数组，其容量时旧数组的两倍，并重新计算旧数组中节点的存储位置，结点在新的数组中的位置只有两种，原下标位置或原下标+旧数组的大小</p>
-<h4 id="9-拉链法导致的链表过深问题为什不用二叉树代替，而选择红黑树，为什么不一直使用红黑树？"><a href="#9-拉链法导致的链表过深问题为什不用二叉树代替，而选择红黑树，为什么不一直使用红黑树？" class="headerlink" title="9.拉链法导致的链表过深问题为什不用二叉树代替，而选择红黑树，为什么不一直使用红黑树？"></a>9.拉链法导致的链表过深问题为什不用二叉树代替，而选择红黑树，为什么不一直使用红黑树？</h4><p>选择红黑树是为了解决二叉查找树的缺陷，二叉查找树在特殊情况下会编程一条线性结构，这与使用链表结构一样了。 遍历查找会非常慢，而红黑树在插入新数据后可能需要通过左旋右旋变色等操作来保持平衡，引入红黑树就是为了查找数据快，解决链表查找深度的问题，我们知道红黑树属于平衡二叉树，但为了保持平衡是需要付出代价的，但是该代价所损耗的资源要比遍历线性链表要少，所以长长度大于8时，会使用红黑树，入股链表长度很短的话，根本不需要引入红黑树，引入反而会慢。</p>
-<h4 id="10-红黑树的理解"><a href="#10-红黑树的理解" class="headerlink" title="10.红黑树的理解"></a>10.红黑树的理解</h4><ul>
-<li>每个节点非红即黑</li>
-<li>根节点总是黑节点</li>
-<li>如果节点时红色，则它的子节点必须时黑色的</li>
-<li>每个叶子节点都是黑色的空节点</li>
-<li>从根节点到叶节点或空子节点的每条路径，必须包含相同数目的黑色节点（即相同的黑色高度）</li>
-</ul>
-<h4 id="11-JDK1-8对HashMap的改变？"><a href="#11-JDK1-8对HashMap的改变？" class="headerlink" title="11. JDK1.8对HashMap的改变？"></a>11. JDK1.8对HashMap的改变？</h4><ul>
-<li>如果链表的长度超过了8，那么链表将转换位红黑树，总的数量必须大于64， 小于64的时候只会扩容</li>
-<li>发生hash碰撞时，jdk1.7会在链表头部插入，jdk1.8会在链表尾部插入</li>
-<li>jdk1.8中，Entry被Node替代</li>
-</ul>
-<h4 id="12-HashMap，-LinkedHashMap，-TreeMap区别"><a href="#12-HashMap，-LinkedHashMap，-TreeMap区别" class="headerlink" title="12. HashMap， LinkedHashMap， TreeMap区别"></a>12. HashMap， LinkedHashMap， TreeMap区别</h4><p>LinkedHashMap：保存了记录的插入顺序，再用Iterator遍历时，先取到的记录肯定是先插入的，遍历比HashMap慢<br>TreeMap实现SortMap接口，能够把它保存的记录根据键排序。默认升序，可以指定排序比较器。</p>
-<h4 id="13-HashMap和HashTable的区别？"><a href="#13-HashMap和HashTable的区别？" class="headerlink" title="13.HashMap和HashTable的区别？"></a>13.HashMap和HashTable的区别？</h4><ul>
-<li>HashMap是线程不安全的，HashTable是线程安全的</li>
-<li>HashMap的效率高于HashTable</li>
-<li>HashMap最多允许一条记录的键为Null，允许多条记录的值为Null， 而HashTable不允许</li>
-<li>HashMap默认初始化数组的大小是16，HashTable为11， 前者扩容时，扩大两倍。后者扩大两倍+1.</li>
-<li>HashMap需要重新计算hash值，而hashTable直接使用对象的hashCode。</li>
-</ul>
-<h4 id="15-ConcurrentHashMap线程安全与HashTable的区别？"><a href="#15-ConcurrentHashMap线程安全与HashTable的区别？" class="headerlink" title="15.ConcurrentHashMap线程安全与HashTable的区别？"></a>15.ConcurrentHashMap线程安全与HashTable的区别？</h4><ul>
-<li>ConcurrentHashMap：    <ul>
-<li>JDK1.7中使用分段锁（ReentrantLock + Segment + HashEntry），相当于把一个HashMap分成多个段，每段分配一把锁，锁粒度基于Segment，包含多个HashEntry。</li>
-<li>JDK1.8 中使用CAS + synchronized + Node + 红黑树，粒度：Node，粒度降低</li>
-</ul>
-</li>
-<li>HashTable使用一把锁锁住整个链表结构，多线程竞争一把锁。</li>
-</ul>
-<h4 id="16-ConcurrentHashMap的锁机制"><a href="#16-ConcurrentHashMap的锁机制" class="headerlink" title="16.ConcurrentHashMap的锁机制"></a>16.ConcurrentHashMap的锁机制</h4><p>JDK1.7中采用分段锁的机制，实现并发的更新操作，底层采用数组+链表的存储结构，包含两个核心的静态内部类Segment和HashEntry。</p>
-<ul>
-<li>Segment集成ReentrantLock（重入锁）用来充当锁角色，每个Segment对象守护每个散列映射表的若干个桶。</li>
-<li>HashEntry用来封装映射表的键值对；</li>
-<li>每个通是由若干个HashEntry对象链接起来的链表</li>
-</ul>
-<p><img src="http://p1.pstatp.com/large/pgc-image/5ba969687b1c45978407ee5c627cc251" alt="image"></p>
-<p>JDK1.8中采用Node + CAS + synchronized来保证并发安全，取消类Segment，直接用table数组存储键值对，当HashEntry对象组成的链表长度超过TREEIFY_THRESHOLD时，链表转换成红黑树，提升性能<br><img src="http://p1.pstatp.com/large/pgc-image/ecafc09b49c448fbadc3e3f4ac0ccb98" alt="image"></p>
-<p>注意：<br><strong>ConcurrentHashMap需要待学</strong></p>
-<p>原文： <a href="https://www.cnblogs.com/Young111/p/11519952.html?utm_source=gold_browser_extension" target="_blank" rel="noopener">https://www.cnblogs.com/Young111/p/11519952.html?utm_source=gold_browser_extension</a></p>
-
+                    <p>HashMap相关</p>
+                    <div class="read-more">
+                        <a href="/2019/09/21/HashMap系列/" class="read-more-link">
+                            阅读全文
+                            <i class="iconfont icon-readmore"></i>
+                        </a>
+                    </div>
                 
             </div>
         </article>
