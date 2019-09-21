@@ -73,18 +73,24 @@
 <div class="main">
     <div class="content-inner">
         <div class="posts">
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/09/21/HashMap系列/">HashMap系列</a></h2>
-            </div>
+    <article class="post-whole">
+        <div class="post-title">
+            <h2 class="title">HashMap系列</h2>
             <div class="post-meta">
                 <span class="post-time">2019-09-21</span>
                 
+                <span class="post-visit"> 阅读次数：<span id="busuanzi_value_page_pv"></span></span>
             </div>
-            <div class="post-content">
-                
-                    <a id="more"></a>
+        </div>
+        <div class="post-toc" id="post-toc">
+    <strong class="post-toc-title">目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-HashMap的数据结构"><span class="toc-text">1. HashMap的数据结构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-HashMap的工作原理"><span class="toc-text">2.HashMap的工作原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-当两个对象得hashCode相同会发生什么？"><span class="toc-text">3. 当两个对象得hashCode相同会发生什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-hash得实现？"><span class="toc-text">4.hash得实现？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-HashMap的table容量如何确定？loadfactor是什么？"><span class="toc-text">6.HashMap的table容量如何确定？loadfactor是什么？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-HashMap中put方法过程"><span class="toc-text">7. HashMap中put方法过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-数组扩容"><span class="toc-text">8.数组扩容</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-拉链法导致的链表过深问题为什不用二叉树代替，而选择红黑树，为什么不一直使用红黑树？"><span class="toc-text">9.拉链法导致的链表过深问题为什不用二叉树代替，而选择红黑树，为什么不一直使用红黑树？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-红黑树的理解"><span class="toc-text">10.红黑树的理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-JDK1-8对HashMap的改变？"><span class="toc-text">11. JDK1.8对HashMap的改变？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-HashMap，-LinkedHashMap，-TreeMap区别"><span class="toc-text">12. HashMap， LinkedHashMap， TreeMap区别</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-HashMap和HashTable的区别？"><span class="toc-text">13.HashMap和HashTable的区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-ConcurrentHashMap线程安全与HashTable的区别？"><span class="toc-text">15.ConcurrentHashMap线程安全与HashTable的区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-ConcurrentHashMap的锁机制"><span class="toc-text">16.ConcurrentHashMap的锁机制</span></a></li></ol>
+    <div class="back-to-top" id="back-to-top">
+        <a href="javascript:void(0);">回到顶部</a>
+    </div>
+</div>
+        <div class="post-content">
+            <a id="more"></a>
 <h4 id="1-HashMap的数据结构"><a href="#1-HashMap的数据结构" class="headerlink" title="1. HashMap的数据结构"></a>1. HashMap的数据结构</h4><p>哈希表结构（链表散列：数组+链接）实现，结合数组和链表的有点。当链表长度超过8时，链表转换成红黑树<br>transient Node&lt;K, V&gt;[] table;</p>
 <h4 id="2-HashMap的工作原理"><a href="#2-HashMap的工作原理" class="headerlink" title="2.HashMap的工作原理"></a>2.HashMap的工作原理</h4><p>HashMap底层时hash数组和单向链表实现，数组中的每个元素都是链表，由Node内部类（实现Map.Entry&lt;K,V&gt; 接口）实现，HashMap通过put&amp;get方法存储和获取。<br>存储对象时，将K/V键值传给put方法：</p>
 <ul>
@@ -161,232 +167,23 @@
 <p>注意：<br><strong>ConcurrentHashMap需要待学</strong></p>
 <p>原文： <a href="https://www.cnblogs.com/Young111/p/11519952.html?utm_source=gold_browser_extension" target="_blank" rel="noopener">https://www.cnblogs.com/Young111/p/11519952.html?utm_source=gold_browser_extension</a></p>
 
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/06/24/Spring Ioc学习/">Spring Io 源码学习</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2019-06-24</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h4 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1. 初始化"></a>1. 初始化</h4><ul>
-<li>spring Ioc的初始化过程，大体是：读取xml资源，并解析，最终注册到Bean Factory中：
-                    <div class="read-more">
-                        <a href="/2019/06/24/Spring Ioc学习/" class="read-more-link">
-                            阅读全文
-                            <i class="iconfont icon-readmore"></i>
-                        </a>
-                    </div>
-                
-            </li></ul></div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/06/21/Java虚拟机/">Java 虚拟机</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2019-06-21</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h4 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1.运行时数据区域"></a>1.运行时数据区域</h4>
-                    <div class="read-more">
-                        <a href="/2019/06/21/Java虚拟机/" class="read-more-link">
-                            阅读全文
-                            <i class="iconfont icon-readmore"></i>
-                        </a>
-                    </div>
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/06/21/Java内存/">Java内存</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2019-06-21</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h5 id="1-1-对象优先在Eden区分配"><a href="#1-1-对象优先在Eden区分配" class="headerlink" title="1.1 对象优先在Eden区分配"></a>1.1 对象优先在Eden区分配</h5><p>目前主流的垃圾收集器都会采用分代回收算法，因此需要将堆内存分为新生代和老年代，这样就可以根据各个年代的特点选择合适的垃圾收集算法</p>
-<ul>
-<li>大多数情况下，对象在新生代中Eden区分配。当Eden区没有足够的空间进行分配时，虚拟机将发起一次Minor GC。</li>
-<li>新生代GC（Minor GC）：发生新生代的来及收集动作，Minor GC非常频繁，回收速度一般比较快。</li>
-<li>老年代GC（Major GC/Full GC）：发生在老年代的GC，出现Major GC经常会伴随最少一次的Minor GC（非绝对）Major GC的速度比Minor GC慢10倍以上。
-                    <div class="read-more">
-                        <a href="/2019/06/21/Java内存/" class="read-more-link">
-                            阅读全文
-                            <i class="iconfont icon-readmore"></i>
-                        </a>
-                    </div>
-                
-            </li></ul></div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/06/21/深入理解JVM/">深入理解JVM</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2019-06-21</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <ol>
-<li>运行时数据区域<ul>
-<li>Java虚拟机管理的内存包括几个运行时数据内存：方法区、虚拟机栈、本地方法栈、堆、程序计数器，其中方法区和堆是由线程共享的数据区，其他几个是线程隔离的数据区
-                    <div class="read-more">
-                        <a href="/2019/06/21/深入理解JVM/" class="read-more-link">
-                            阅读全文
-                            <i class="iconfont icon-readmore"></i>
-                        </a>
-                    </div>
-                
-            </li></ul></li></ol></div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/06/21/JDK8新特性/">JDK8新特性</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2019-06-21</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h5 id="1-接口默认方法（Default-Methods-for-Interfaces）"><a href="#1-接口默认方法（Default-Methods-for-Interfaces）" class="headerlink" title="1.接口默认方法（Default Methods for Interfaces）"></a>1.接口默认方法（Default Methods for Interfaces）</h5><ul>
-<li>Java 8能够通过使用<code>default</code>关键字向接口添加非抽象方法实现，此功能成为<strong>虚拟扩展方法</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">interface Formula&#123;</span><br><span class="line">    double calculate(int a);</span><br><span class="line">    default double sqrt(int a)&#123;</span><br><span class="line">        return Math.sqrt(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-                    <div class="read-more">
-                        <a href="/2019/06/21/JDK8新特性/" class="read-more-link">
-                            阅读全文
-                            <i class="iconfont icon-readmore"></i>
-                        </a>
-                    </div>
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/06/21/JDK动态代理和Cglib动态代理/">JDK动态代理</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2019-06-21</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h4 id="1-JDK动态代理"><a href="#1-JDK动态代理" class="headerlink" title="1. JDK动态代理"></a>1. JDK动态代理</h4>
-                    <div class="read-more">
-                        <a href="/2019/06/21/JDK动态代理和Cglib动态代理/" class="read-more-link">
-                            阅读全文
-                            <i class="iconfont icon-readmore"></i>
-                        </a>
-                    </div>
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/04/04/Nginx基本知识/">Nginx基本功能和原理</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2019-04-04</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h4 id="Nginx基本功能"><a href="#Nginx基本功能" class="headerlink" title="Nginx基本功能"></a>Nginx基本功能</h4><ul>
-<li>反向代理</li>
-<li>正向代理</li>
-<li>负载均衡</li>
-<li>HTTP服务器</li>
-</ul>
-                    <div class="read-more">
-                        <a href="/2019/04/04/Nginx基本知识/" class="read-more-link">
-                            阅读全文
-                            <i class="iconfont icon-readmore"></i>
-                        </a>
-                    </div>
-                
-            </div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/04/04/为什么使用Nginx/">为什么使用Nginx</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2019-04-04</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <p>Nginx是一个高性能的web和反向代理服务器，它具有很多优越的特性：</p>
-<ul>
-<li>作为web服务器，使用资源少，并发高</li>
-<li>做负载均衡服务器</li>
-<li>作为偶见代理服务器，</li>
-<li>安装简单，配置文件简洁
-                    <div class="read-more">
-                        <a href="/2019/04/04/为什么使用Nginx/" class="read-more-link">
-                            阅读全文
-                            <i class="iconfont icon-readmore"></i>
-                        </a>
-                    </div>
-                
-            </li></ul></div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/04/04/Nginx配置/">Nginx配置</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2019-04-04</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    <h4 id="Nginx配置文件区域说明"><a href="#Nginx配置文件区域说明" class="headerlink" title="Nginx配置文件区域说明"></a>Nginx配置文件区域说明</h4>
-                    <div class="read-more">
-                        <a href="/2019/04/04/Nginx配置/" class="read-more-link">
-                            阅读全文
-                            <i class="iconfont icon-readmore"></i>
-                        </a>
-                    </div>
-                
-            </div>
-        </article>
-    
+        </div>
+        
+    </article>
 </div>
 <div class="paginator">
     
         
         
-        <a class="next" href="/page/2/">
-            下一页
-            <i class="iconfont icon-next"></i>
-        </a>
+            <a class="next" href="/2019/06/24/Spring Ioc学习/">
+                <span class="nav-default">Spring Io 源码学习</span>
+                <span class="nav-mobile">下一篇</span>
+                <i class="iconfont icon-next"></i>
+            </a>
         
     
 </div>
-
+<div id="comment-container"></div>
     </div>
 </div>
 <footer class="footer-social">
