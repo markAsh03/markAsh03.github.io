@@ -76,18 +76,321 @@
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/04/02/Mybatis工作原理/">Mybatis工作原理</a></h2>
+                <h2><a class="post-title-link" href="/2020/01/20/2020面试题/Redis/"></a></h2>
             </div>
             <div class="post-meta">
-                <span class="post-time">2019-04-02</span>
+                <span class="post-time">2020-01-20</span>
                 
             </div>
             <div class="post-content">
                 
-                    <h4 id="1-工作原理"><a href="#1-工作原理" class="headerlink" title="1.工作原理"></a>1.工作原理</h4><ul>
-<li>Mybatis应用程序通过SQLSessionFactoryBuilder从mybatis-config.xml配置文件（也可以用Java文件配置的方式，需要添加@Configuration）中构建出SQLSessionFactory（SQLSessionFactory是县城安全的）
+                    <h4 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h4><ol>
+<li>使用Redis有哪些好处?</li>
+<li>redis相比memcached有哪些优势?</li>
+<li>redis常见性能问题和解决方案</li>
+<li>MySQL里有2000w数据, redis中只存20w的数据,如何保证redis中的数据都是热点数据</li>
+<li>Memcache与Redis的区别都有哪些?</li>
+<li>Redis常见的性能问题都有哪些?如何解决?</li>
+<li>redis最适合的场景</li>
+<li>Redis的同步机制了解么?</li>
+<li>是否使用过Redis集群,集群的原理是什么?</li>
+<li>redis集群如何保证一致性?</li>
+</ol>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2020/01/20/2020面试题/MySQL/"></a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2020-01-20</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h4 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h4><ol>
+<li>主键超键候选键外键<ul>
+<li>主键：</li>
+<li>超键：</li>
+<li>候选键：</li>
+<li>外键：</li>
+</ul>
+</li>
+<li>数据库事务的四个特性及含义<ul>
+<li>原子性：要么全部成功，要么全部失败</li>
+<li>一致性：执行前和执行后必须处于一致性状态 </li>
+<li>隔离性：多并发事务之间相互隔离</li>
+<li>持久性：事务提交后，数据的改变是永久性的</li>
+</ul>
+</li>
+<li>隔离级别，为什么使用隔离级别？<ul>
+<li>由低到高一次为Read uncommitted(未授权读取，读未提交)、Read committed（授权读取，都提交）、Repeatable Read(可重复读)、 Serializable（序列化）, 这四个级别可以逐个解释为 ：脏读、不可重复读、幻读。</li>
+<li>Read uncommitted（读未提交）：如果一个事务已经开始写数据，则另一个事务则不允许进行写操作，但允许其他事务读此行数据。也就是说事务B读取了事务A未提交的数据。</li>
+<li>Read Committed（读提交）：读取数据的事务允许其他事务继续访问改行数据，但未提交的写事务将会禁止其他事务访问该行。避免了脏读，但可能出现不可重复读。事务A事先读取了数据，事务B紧接着更新了数据，并提交了事务，而事务A再次读取该数据时，数据已经发生了改变。</li>
+<li>Repeatable Read（可重复读）：同一个事务内，可多次读同一数据。</li>
+<li>Serializable(序列化)：事务序列化执行</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+<th>第一类丢失更新</th>
+<th>第二类丢失更新</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Read UnCommitted</td>
+<td>允许</td>
+<td>允许</td>
+<td>允许</td>
+<td>不允许</td>
+<td>允许</td>
+</tr>
+<tr>
+<td>Read Committed</td>
+<td>不允许</td>
+<td>允许</td>
+<td>允许</td>
+<td>不允许</td>
+<td>允许</td>
+</tr>
+<tr>
+<td>Repeatable Read</td>
+<td>不允许</td>
+<td>不允许</td>
+<td>允许</td>
+<td>不允许</td>
+<td>不允许</td>
+</tr>
+<tr>
+<td>Serialiable</td>
+<td>不允许</td>
+<td>不允许</td>
+<td>不允许</td>
+<td>不允许</td>
+<td>不允许</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>视图的作用，视图可以更改么?<ul>
+<li>是从一个或多个表导出的虚拟的表，其内容由查询定义。具有普通表的结构，但是不实现数据存储</li>
+<li>单表视图一般用于查询和修改，会改变基本表的数据</li>
+<li>多表视图一般用于查询，不会改变基本表的数据</li>
+<li>作用：<ul>
+<li>简化了操作，把经常使用的数据定义为视图</li>
+<li>安全性，用户只能查询和修改能看到的数据</li>
+<li>逻辑上的独立性，屏蔽了真实表的结构带来的影响</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>drop,delete与truncate的区别<ul>
+<li>drop 直接删掉表</li>
+<li>truncate删除的是表中的数据，再插入数据时自增长的数据id有重新从1开始</li>
+<li>delete删除表中数据，可以后接where语句</li>
+</ul>
+</li>
+<li>索引的工作原理及其种类<ul>
+<li>索引的实现通常使用B树及其变种B+树</li>
+<li>使用索引来聚集数据的索引是聚集索引，InnoDB就是聚集索引，MyISAM是非聚集索引。 MyISAM创建表时会创建三个文件：.frm(表结构) .MYD(数据文件) .MYI(索引文件)。 InnoDB创建表时生成两个文件： .frm(表结构) .idb(数据文件)</li>
+<li>聚集索引与辅助索引不同的是：叶子节点存放的是否是一整行的信息<ul>
+<li>聚集索引：按照每张表的主键构造一棵B+树，同时叶子结点存放的即为整张表的行记录数据，也将聚集索引的叶子结点称为数据页。每个数据页都通过一个双向链表来进行链接。<ul>
+<li>好处：对主键的排序查找和范围查找速度非常快，叶子结点的数据就是用户所要查询的数据</li>
+<li>范围查询，由于B+树索引是双向链表，通过叶子节点的上层中间节点就可以得到页的范围，之后直接读取数据页即可。</li>
+</ul>
+</li>
+<li>辅助索引：叶子节点存放的是对应的那条数据的主键字段的值</li>
+<li>覆盖索引：在辅助索引的叶子结点上就能找到想要的数据，称为覆盖索引</li>
+</ul>
+</li>
+<li>分类：<ul>
+<li>hash类型的索引：查询单条快，范围查询慢</li>
+<li>btree类型的索引：B+树，层数越多，数量级指数增长</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>连接的种类<ul>
+<li>内连接(Inner join): 两个表都存在匹配时，才返回行</li>
+<li>左连接(left join): 返回左表中的所有行，即使右表中没有匹配的行</li>
+<li>右连接(Right join): 返回右表中的所有行，即使左表中没有匹配的行</li>
+<li>全连接(Full join): 只要某一个表存在匹配，就返回行</li>
+<li>笛卡尔连接(Cartesian Join): 返回多表中记录集的笛卡尔积</li>
+</ul>
+</li>
+<li>数据库范式<ul>
+<li>1NF第一范式：<ul>
+<li>每一列属性都是不可再分的属性值，确保每一列的原子性</li>
+<li>两列的属性相近或者相似或一样，尽量个兵属性一样的列，确保不产生冗余数据</li>
+</ul>
+</li>
+<li>2NF第二范式：<ul>
+<li>每一行的数据只能与其中一列相关，即一行数据只做一件事，只要数据列中出现数据重复，就要把表拆分开来</li>
+</ul>
+</li>
+<li>3NF第三范式：<ul>
+<li>数据不能存在传递关系，即每个属性都跟主键有直接关系而不是间接关系</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>数据库优化的思路<ul>
+<li>高并发读写操作： 集群，分布式</li>
+<li>海量数据读写： 分表，分库</li>
+<li>单机慢查询优化<ul>
+<li>范式规范，3NF和反3NF</li>
+<li>存储引擎选择：<ul>
+<li>事务安全：MyISAM不支持，InnoDB支持</li>
+<li>查询和添加速度：MyISAM快，InnoDB慢</li>
+<li>全文索引：MyISAM支持， InnoDB不支持</li>
+<li>锁机制：MyISAM表锁，InnoDB行锁</li>
+<li>外键：MyISAM不支持，InnoDB支持</li>
+</ul>
+</li>
+<li>索引：以空间换时间<ul>
+<li>分类<ul>
+<li>普通索引</li>
+<li>唯一索引</li>
+<li>主键索引</li>
+<li>全文索引</li>
+</ul>
+</li>
+<li>适合加索引条件<ul>
+<li>较频繁作为查询条件字段应该创建索引</li>
+<li>唯一性太差字段不适合单独创建索引</li>
+<li>更新非常频繁的字段不适合创建索引</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分表： 水平分割（行）垂直分割（列）</li>
+<li>分区：<ul>
+<li>方式：<ul>
+<li>Range（范围）：基于一个给定的连续空间，把数据分配到不同分区</li>
+<li>List（预定义列表）：类型Range分区，区别在于是基于枚举出的值列表分区。</li>
+<li>Hash: 通过一个或者多个列的Hash Key进行计算得到的不同数值进行分区</li>
+<li>Key：Hash的特例，MySQL系统产生的</li>
+<li>Composite（复合模式）： 以上模式的组合使用</li>
+</ul>
+</li>
+<li>空值的处理：<ul>
+<li>Range： 默认放入最小值分区</li>
+<li>List： 必须指定Null值匹配</li>
+<li>Hash：默认当成0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DQL：<ul>
+<li>放弃索引： != &lt;&gt; is null or in not like模糊前置匹配</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>集群：主从同步+读写分离+主备切换</li>
+<li>分布式： </li>
+<li>缓存：         </li>
+</ul>
+</li>
+<li>存储过程与触发器的区别<ul>
+<li>存储过程是一组已创建并存储在数据库中的SQL语句，可重用。 触发器是一种特殊的不是由用户直接调用的存储过程。</li>
+<li>用户可以使用Execute或Exec语句直接调用或执行存储过程，而无法直接调用执行触发器，触发相关事件时，自动执行。</li>
+<li>存储过程可输入参数，触发器不能</li>
+<li>存储过程可返回值，触发器不能</li>
+<li>存储过程中可以使用事务，触发器不允许进行事务处理</li>
+<li>存储过程通过用于执行用户指定的任务，触发器通常用于审计工作</li>
+</ul>
+</li>
+</ol>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2020/01/20/2020面试题/JVM理论/"></a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2020-01-20</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h4 id="JVM理论"><a href="#JVM理论" class="headerlink" title="JVM理论"></a>JVM理论</h4><ol>
+<li>Java 内存分配？</li>
+<li>Java 堆的结构是什么样子的？</li>
+<li>什么是堆中的永久代（Perm Gen space）?</li>
+<li>简述各个版本内存区域的变化？</li>
+<li>说说各个区域的作用？</li>
+<li>Java 中会存在内存泄漏吗，简述一下？</li>
+<li>Java 类加载过程？</li>
+<li>描述一下 JVM 加载 Class 文件的原理机制?</li>
+<li>什么是类加载器？</li>
+<li>类加载器有哪些？</li>
+<li>什么是tomcat类加载机制？</li>
+<li>类加载器双亲委派模型机制？</li>
+<li>什么是GC? 为什么要有 GC？</li>
+<li>简述一下Java 垃圾回收机制？</li>
+<li>如何判断一个对象是否存活？</li>
+<li>垃圾回收的优点和原理，并考虑 2 种回收机制？</li>
+<li>垃圾回收器的基本原理是什么？</li>
+<li>垃圾回收器可以马上回收内存吗？有什么办法主动通知虚拟机进行垃圾回收？</li>
+<li>深拷贝和浅拷贝？</li>
+<li>System.gc() 和 Runtime.gc() 会做些什么？</li>
+<li>如果对象的引用被置为 null，垃圾收集器是否会立即释放对象占用的内存？</li>
+<li>什么是分布式垃圾回收（DGC）？它是如何工作的？</li>
+</ol>
+
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2019/09/21/HashMap系列/">HashMap系列</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2019-09-21</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <p>HashMap相关</p>
                     <div class="read-more">
-                        <a href="/2019/04/02/Mybatis工作原理/" class="read-more-link">
+                        <a href="/2019/09/21/HashMap系列/" class="read-more-link">
+                            阅读全文
+                            <i class="iconfont icon-readmore"></i>
+                        </a>
+                    </div>
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2019/06/24/Spring Ioc学习/">Spring Io 源码学习</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2019-06-24</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h4 id="1-初始化"><a href="#1-初始化" class="headerlink" title="1. 初始化"></a>1. 初始化</h4><ul>
+<li>spring Ioc的初始化过程，大体是：读取xml资源，并解析，最终注册到Bean Factory中：
+                    <div class="read-more">
+                        <a href="/2019/06/24/Spring Ioc学习/" class="read-more-link">
                             阅读全文
                             <i class="iconfont icon-readmore"></i>
                         </a>
@@ -98,18 +401,42 @@
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/04/01/MyBatis基础（一）/">MyBatis基础知识</a></h2>
+                <h2><a class="post-title-link" href="/2019/06/21/Java虚拟机/">Java 虚拟机</a></h2>
             </div>
             <div class="post-meta">
-                <span class="post-time">2019-04-01</span>
+                <span class="post-time">2019-06-21</span>
                 
             </div>
             <div class="post-content">
                 
-                    <h4 id="1-什么是Mybatis？"><a href="#1-什么是Mybatis？" class="headerlink" title="1.什么是Mybatis？"></a>1.什么是Mybatis？</h4><ul>
-<li>Mybatis是一个半ORM（对象关系映射）框架，它内部封装了JDBC，开发只需要关注SQL本身，不需要处理加载驱动，创建连接，创建statement等过程。
+                    <h4 id="1-运行时数据区域"><a href="#1-运行时数据区域" class="headerlink" title="1.运行时数据区域"></a>1.运行时数据区域</h4>
                     <div class="read-more">
-                        <a href="/2019/04/01/MyBatis基础（一）/" class="read-more-link">
+                        <a href="/2019/06/21/Java虚拟机/" class="read-more-link">
+                            阅读全文
+                            <i class="iconfont icon-readmore"></i>
+                        </a>
+                    </div>
+                
+            </div>
+        </article>
+    
+        <article class="post-abstract">
+            <div class="post-title">
+                <h2><a class="post-title-link" href="/2019/06/21/Java内存/">Java内存</a></h2>
+            </div>
+            <div class="post-meta">
+                <span class="post-time">2019-06-21</span>
+                
+            </div>
+            <div class="post-content">
+                
+                    <h5 id="1-1-对象优先在Eden区分配"><a href="#1-1-对象优先在Eden区分配" class="headerlink" title="1.1 对象优先在Eden区分配"></a>1.1 对象优先在Eden区分配</h5><p>目前主流的垃圾收集器都会采用分代回收算法，因此需要将堆内存分为新生代和老年代，这样就可以根据各个年代的特点选择合适的垃圾收集算法</p>
+<ul>
+<li>大多数情况下，对象在新生代中Eden区分配。当Eden区没有足够的空间进行分配时，虚拟机将发起一次Minor GC。</li>
+<li>新生代GC（Minor GC）：发生新生代的来及收集动作，Minor GC非常频繁，回收速度一般比较快。</li>
+<li>老年代GC（Major GC/Full GC）：发生在老年代的GC，出现Major GC经常会伴随最少一次的Minor GC（非绝对）Major GC的速度比Minor GC慢10倍以上。
+                    <div class="read-more">
+                        <a href="/2019/06/21/Java内存/" class="read-more-link">
                             阅读全文
                             <i class="iconfont icon-readmore"></i>
                         </a>
@@ -120,80 +447,70 @@
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2019/03/30/Hexo+Github博客搭建/">hexo+github博客搭建</a></h2>
+                <h2><a class="post-title-link" href="/2019/06/21/深入理解JVM/">深入理解JVM</a></h2>
             </div>
             <div class="post-meta">
-                <span class="post-time">2019-03-30</span>
+                <span class="post-time">2019-06-21</span>
                 
             </div>
             <div class="post-content">
                 
-                    <p>使用Hexo搭建一个简单的博客<br>
+                    <ol>
+<li>运行时数据区域<ul>
+<li>Java虚拟机管理的内存包括几个运行时数据内存：方法区、虚拟机栈、本地方法栈、堆、程序计数器，其中方法区和堆是由线程共享的数据区，其他几个是线程隔离的数据区
                     <div class="read-more">
-                        <a href="/2019/03/30/Hexo+Github博客搭建/" class="read-more-link">
+                        <a href="/2019/06/21/深入理解JVM/" class="read-more-link">
                             阅读全文
                             <i class="iconfont icon-readmore"></i>
                         </a>
                     </div>
                 
-            </p></div>
+            </li></ul></li></ol></div>
         </article>
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2018/12/12/SpringCloud简介/">Spring Cloud简介</a></h2>
+                <h2><a class="post-title-link" href="/2019/06/21/JDK8新特性/">JDK8新特性</a></h2>
             </div>
             <div class="post-meta">
-                <span class="post-time">2018-12-12</span>
+                <span class="post-time">2019-06-21</span>
                 
             </div>
             <div class="post-content">
                 
-                    <h4 id="什么是Spring-Cloud"><a href="#什么是Spring-Cloud" class="headerlink" title="什么是Spring Cloud:"></a>什么是Spring Cloud:</h4><p>Spring Cloud是一系列框架的有序集合。实现服务发现注册、配置中心、消息总线，负载均衡、熔断路、数据监控等。<br>
+                    <h5 id="1-接口默认方法（Default-Methods-for-Interfaces）"><a href="#1-接口默认方法（Default-Methods-for-Interfaces）" class="headerlink" title="1.接口默认方法（Default Methods for Interfaces）"></a>1.接口默认方法（Default Methods for Interfaces）</h5><ul>
+<li>Java 8能够通过使用<code>default</code>关键字向接口添加非抽象方法实现，此功能成为<strong>虚拟扩展方法</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">interface Formula&#123;</span><br><span class="line">    double calculate(int a);</span><br><span class="line">    default double sqrt(int a)&#123;</span><br><span class="line">        return Math.sqrt(a);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
                     <div class="read-more">
-                        <a href="/2018/12/12/SpringCloud简介/" class="read-more-link">
+                        <a href="/2019/06/21/JDK8新特性/" class="read-more-link">
                             阅读全文
                             <i class="iconfont icon-readmore"></i>
                         </a>
                     </div>
-                
-            </p></div>
-        </article>
-    
-        <article class="post-abstract">
-            <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/03/29/我的第一篇博客/">我的第一篇博客</a></h2>
-            </div>
-            <div class="post-meta">
-                <span class="post-time">2017-03-29</span>
-                
-            </div>
-            <div class="post-content">
-                
-                    
                 
             </div>
         </article>
     
         <article class="post-abstract">
             <div class="post-title">
-                <h2><a class="post-title-link" href="/2017/01/01/MySQL优化-执行计划解读/">Mysql优化之执行计划解读</a></h2>
+                <h2><a class="post-title-link" href="/2019/06/21/JDK动态代理和Cglib动态代理/">JDK动态代理</a></h2>
             </div>
             <div class="post-meta">
-                <span class="post-time">2017-01-01</span>
+                <span class="post-time">2019-06-21</span>
                 
             </div>
             <div class="post-content">
                 
-                    <h6 id="使用explain-命令再解决数据库性能上是第一推荐命令，"><a href="#使用explain-命令再解决数据库性能上是第一推荐命令，" class="headerlink" title="使用explain 命令再解决数据库性能上是第一推荐命令，"></a>使用explain 命令再解决数据库性能上是第一推荐命令，</h6><p>语法：<br><code>explain select ... from ... [where ...]</code><br>
+                    <h4 id="1-JDK动态代理"><a href="#1-JDK动态代理" class="headerlink" title="1. JDK动态代理"></a>1. JDK动态代理</h4>
                     <div class="read-more">
-                        <a href="/2017/01/01/MySQL优化-执行计划解读/" class="read-more-link">
+                        <a href="/2019/06/21/JDK动态代理和Cglib动态代理/" class="read-more-link">
                             阅读全文
                             <i class="iconfont icon-readmore"></i>
                         </a>
                     </div>
                 
-            </p></div>
+            </div>
         </article>
     
 </div>
@@ -205,6 +522,11 @@
             上一页
         </a>
         
+        
+        <a class="next" href="/page/3/">
+            下一页
+            <i class="iconfont icon-next"></i>
+        </a>
         
     
 </div>
@@ -223,7 +545,7 @@
             &copy;
             
             
-            2019
+            2020
             &nbsp;<i class="iconfont icon-heart"></i>&nbsp;
             <a target="_blank" href="https://github.com/iJinxin">John Doe</a>
         </p>
